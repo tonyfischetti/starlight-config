@@ -1,7 +1,6 @@
 
 #lang racket
 
-(require racket/string)
 (require racket/runtime-path
          (for-syntax racket/base))
 
