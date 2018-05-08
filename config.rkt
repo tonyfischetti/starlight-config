@@ -17,12 +17,13 @@
 (define lookup
   `((reload (load-rc))
     (repl (graphical-read-eval-print-loop))
+    (about (send about-dialog show #t))
     (kill (begin (stop-server) (exit 0)))))
 
 (define mac-lookup
   `((firefox (exec "open /Applications/Firefox.app"))
     (terminal (exec "open /Applications/iTerm.app/"))
-    (vim (exec "open /Applications/MacVim.app"))
+    (macvim (exec "open /Applications/MacVim.app"))
     (calendar (exec "open /Applications/Calendar.app"))
     (contacts (exec "open /Applications/Contacts.app/"))
     (whatsapp (exec "open /Applications/WhatsApp.app/"))
