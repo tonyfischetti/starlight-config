@@ -37,7 +37,10 @@
     (preview (exec "open /Applications/Preview.app"))
     (slack (exec "open /Applications/Slack.app/"))
     (messages (exec "open /Applications/Messages.app"))
+    (config (exec "open ~/.starlight/config.rkt"))
     (lock (exec "/System/Library/CoreServices/ScreenSaverEngine.app/Contents/MacOS/ScreenSaverEngine"))
+    (shutdown (exec "osascript -e 'tell app \"loginwindow\" to «event aevtrsdn»'"))
+    (reboot (exec "osascript -e 'tell app \"loginwindow\" to «event aevtrrst»'"))
     (google
       (let [(url (string-append
                    "open -a Firefox 'http://google.com/search?q="
