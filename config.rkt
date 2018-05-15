@@ -39,6 +39,7 @@
     (slack (exec "open /Applications/Slack.app/"))
     (messages (exec "open /Applications/Messages.app"))
     (config (exec "open ~/.starlight/config.rkt"))
+    (dictionary (exec "open /Applications/Dictionary.app"))
     (notes (exec "open ~/Dropbox/Unclutter\\ Notes/notas.txt"))
     (lock (exec "/System/Library/CoreServices/ScreenSaverEngine.app/Contents/MacOS/ScreenSaverEngine"))
     (shutdown (exec "osascript -e 'tell app \"loginwindow\" to «event aevtrsdn»'"))
@@ -57,6 +58,16 @@
       (let [(url (string-append
                    "open -a Firefox 'http://www.youtube.com/results?search_query="
                    (get-after-colon inputcontents) "'"))]
+        (exec url)))
+    (define
+      (let [(url (string-append
+                   "open -a Firefox 'http://www.dictionary.com/browse/"
+                   (get-after-colon inputcontents) "?s=t'"))]
+        (exec url)))
+    (syn
+      (let [(url (string-append
+                   "open -a Firefox 'http://www.thesaurus.com/browse/"
+                   (get-after-colon inputcontents) "?s=t'"))]
         (exec url)))
     (esen
       (let [(url (string-append
@@ -108,6 +119,16 @@
       (let [(url (string-append
                    "firefox --new-tab 'http://www.youtube.com/results?search_query="
                    (get-after-colon inputcontents) "'"))]
+        (exec url)))
+    (define
+      (let [(url (string-append
+                   "firefox --new-tab 'http://www.dictionary.com/browse/"
+                   (get-after-colon inputcontents) "?s=t'"))]
+        (exec url)))
+    (syn
+      (let [(url (string-append
+                   "firefox --new-tab 'http://www.thesaurus.com/browse/"
+                   (get-after-colon inputcontents) "?s=t'"))]
         (exec url)))
     (esen
       (let [(url (string-append
