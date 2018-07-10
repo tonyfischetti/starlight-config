@@ -72,6 +72,11 @@
                    "open -a Firefox 'http://www.thesaurus.com/browse/"
                    (get-after-colon inputcontents) "?s=t'"))]
         (exec url)))
+    (oclc
+      (let [(url (string-append
+                   "open -a Firefox 'http://classify.oclc.org/classify2/ClassifyDemo?search-title-txt="
+                   (get-after-colon inputcontents) "&startRec=0'"))]
+        (exec url)))
     (esen
       (let [(url (string-append
                    "open -a Firefox 'https://translate.google.com/#es/en/"
