@@ -40,6 +40,7 @@
     (messages (exec "open /Applications/Messages.app"))
     (chrome (exec "open /Applications/Google\\ Chrome.app/"))
     (garageband (exec "open /Applications/GarageBand.app/"))
+    (rstudio (exec "open /Applications/RStudio.app/"))
     (config (exec "open ~/.starlight/config.rkt"))
     (preferences (exec "open /Applications/System\\ Preferences.app"))
     (dictionary (exec "open /Applications/Dictionary.app"))
