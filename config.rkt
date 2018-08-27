@@ -78,6 +78,12 @@
                    "open -a Firefox 'http://classify.oclc.org/classify2/ClassifyDemo?search-title-txt="
                    (get-after-colon inputcontents) "&startRec=0'"))]
         (exec url)))
+    (phone
+      (let [(url (string-append
+                   "open -a Firefox 'http://phone.apps.nypl.org/home/set_form_vars?basicsearch="
+                   (get-after-colon inputcontents) "'"))]
+        (exec url)))
+
     (worldcat
       (let [(url (string-append
                    "open -a Firefox 'https://www.worldcat.org/search?qt=worldcat_org_bks&q="
