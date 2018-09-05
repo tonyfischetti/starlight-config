@@ -83,7 +83,10 @@
                    "open -a Firefox 'http://phone.apps.nypl.org/home/set_form_vars?basicsearch="
                    (get-after-colon inputcontents) "'"))]
         (exec url)))
-
+    (open
+      (let [(cmd (string-append
+                   "open /Applications/" (get-after-colon inputcontents) ".app"))]
+        (exec cmd)))
     (worldcat
       (let [(url (string-append
                    "open -a Firefox 'https://www.worldcat.org/search?qt=worldcat_org_bks&q="
