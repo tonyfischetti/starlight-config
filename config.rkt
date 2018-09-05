@@ -13,95 +13,62 @@
   (let ([separated (string-split theinput ":")])
     (string-trim (car (cdr separated)))))
 
+(define (mexec astring)
+  (let [(thestring (string-append "open /Applications/" astring ".app"))]
+    (exec thestring)))
+
+(define SEARCH-PREFIX "")
+(if (eq? os 'macosx) (set! SEARCH-PREFIX "open -a Firefox ") '())
+(if (eq? os 'unix) (set! SEARCH-PREFIX "firefox --new-tab ") '())
+
 
 (define lookup
   `((reload (load-rc))
     (repl (graphical-read-eval-print-loop))
     (about (send about-dialog show #t))
-    (kill (begin (stop-server) (exit 0)))))
+    (kill (begin (stop-server) (exit 0)))
+    (google (let [(url (string-append SEARCH-PREFIX "'http://google.com/search?q=" (get-after-colon inputcontents) "'"))] (exec url)))
+    (wiki (let [(url (string-append SEARCH-PREFIX "'http://en.wikipedia.org/wiki/Special:Search?search=" (get-after-colon inputcontents) "'"))] (exec url)))
+    (youtube (let [(url (string-append SEARCH-PREFIX "'http://www.youtube.com/results?search_query=" (get-after-colon inputcontents) "'"))] (exec url)))
+    (define (let [(url (string-append SEARCH-PREFIX "'http://www.dictionary.com/browse/" (get-after-colon inputcontents) "?s=t'"))] (exec url)))
+    (syn (let [(url (string-append SEARCH-PREFIX "'http://www.thesaurus.com/browse/" (get-after-colon inputcontents) "?s=t'"))] (exec url)))
+    (oclc (let [(url (string-append SEARCH-PREFIX "'http://classify.oclc.org/classify2/ClassifyDemo?search-title-txt=" (get-after-colon inputcontents) "&startRec=0'"))] (exec url)))
+    (phone (let [(url (string-append SEARCH-PREFIX "'http://phone.apps.nypl.org/home/set_form_vars?basicsearch=" (get-after-colon inputcontents) "'"))] (exec url)))
+    (worldcat (let [(url (string-append SEARCH-PREFIX "'https://www.worldcat.org/search?qt=worldcat_org_bks&q=" (get-after-colon inputcontents) "'"))] (exec url)))
+    (esen (let [(url (string-append SEARCH-PREFIX "'https://translate.google.com/#es/en/" (get-after-colon inputcontents) "'"))] (exec url)))
+    (enes (let [(url (string-append SEARCH-PREFIX "'https://translate.google.com/#en/es/" (get-after-colon inputcontents)  "'"))] (exec url)))))
 
 (define mac-lookup
-  `((firefox (exec "open /Applications/Firefox.app"))
-    (terminal (exec "open /Applications/iTerm.app/"))
-    (macvim (exec "open /Applications/MacVim.app"))
-    (calendar (exec "open /Applications/Calendar.app"))
-    (contacts (exec "open /Applications/Contacts.app/"))
-    (whatsapp (exec "open /Applications/WhatsApp.app/"))
-    (itunes (exec "open /Applications/iTunes.app/"))
-    (spotify (exec "open /Applications/Spotify.app/"))
-    (image-capture (exec "open /Applications/Image Capture.app/"))
-    (app-store (exec "open /Applications/App\\ Store.app/"))
-    (todo (exec "open /Applications/2Do.app/"))
+  `((firefox (mexec "Firefox"))
+    (terminal (mexec "iTerm"))
+    (macvim (mexec "MacVim"))
+    (calendar (mexec "Calendar"))
+    (contacts (mexec "Contacts"))
+    (whatsapp (mexec "WhatsApp"))
+    (itunes (mexec "iTunes"))
+    (spotify (mexec "Spotify"))
+    (image-capture (mexec "Image\\ Capture"))
+    (app-store (mexec "App\\ Store"))
+    (todo (mexec "2Do"))
     (toodledo (exec "open 'http://toodledo.com'"))
-    (monitor (exec "open /Applications/Utilities/Activity\\ Monitor.app"))
+    (monitor (mexec "Utilities/Activity\\ Monitor"))
     (gmail (exec "open 'http://gmail.com'"))
-    (preview (exec "open /Applications/Preview.app"))
-    (slack (exec "open /Applications/Slack.app/"))
-    (messages (exec "open /Applications/Messages.app"))
-    (chrome (exec "open /Applications/Google\\ Chrome.app/"))
-    (garageband (exec "open /Applications/GarageBand.app/"))
-    (rstudio (exec "open /Applications/RStudio.app/"))
+    (preview (mexec "Preview"))
+    (slack (mexec "Slack"))
+    (messages (mexec "Messages"))
+    (chrome (mexec "Google\\ Chrome"))
+    (garageband (mexec "GarageBand"))
+    (rstudio (mexec "RStudio"))
     (config (exec "open ~/.starlight/config.rkt"))
-    (preferences (exec "open /Applications/System\\ Preferences.app"))
-    (dictionary (exec "open /Applications/Dictionary.app"))
+    (preferences (mexec "System\\ Preferences"))
+    (dictionary (mexec "Dictionary"))
     (notes (exec "open ~/Dropbox/Unclutter\\ Notes/notas.txt"))
     (lock (exec "/System/Library/CoreServices/ScreenSaverEngine.app/Contents/MacOS/ScreenSaverEngine"))
     (shutdown (exec "osascript -e 'tell app \"loginwindow\" to «event aevtrsdn»'"))
-    (reboot (exec "osascript -e 'tell app \"loginwindow\" to «event aevtrrst»'"))
-    (google
-      (let [(url (string-append
-                   "open -a Firefox 'http://google.com/search?q="
-                   (get-after-colon inputcontents) "'"))]
-        (exec url)))
-    (wiki
-      (let [(url (string-append
-                   "open -a Firefox 'http://en.wikipedia.org/wiki/Special:Search?search="
-                   (get-after-colon inputcontents) "'"))]
-        (exec url)))
-    (youtube
-      (let [(url (string-append
-                   "open -a Firefox 'http://www.youtube.com/results?search_query="
-                   (get-after-colon inputcontents) "'"))]
-        (exec url)))
-    (define
-      (let [(url (string-append
-                   "open -a Firefox 'http://www.dictionary.com/browse/"
-                   (get-after-colon inputcontents) "?s=t'"))]
-        (exec url)))
-    (syn
-      (let [(url (string-append
-                   "open -a Firefox 'http://www.thesaurus.com/browse/"
-                   (get-after-colon inputcontents) "?s=t'"))]
-        (exec url)))
-    (oclc
-      (let [(url (string-append
-                   "open -a Firefox 'http://classify.oclc.org/classify2/ClassifyDemo?search-title-txt="
-                   (get-after-colon inputcontents) "&startRec=0'"))]
-        (exec url)))
-    (phone
-      (let [(url (string-append
-                   "open -a Firefox 'http://phone.apps.nypl.org/home/set_form_vars?basicsearch="
-                   (get-after-colon inputcontents) "'"))]
-        (exec url)))
-    (open
-      (let [(cmd (string-append
-                   "open /Applications/" (get-after-colon inputcontents) ".app"))]
-        (exec cmd)))
-    (worldcat
-      (let [(url (string-append
-                   "open -a Firefox 'https://www.worldcat.org/search?qt=worldcat_org_bks&q="
-                   (get-after-colon inputcontents) "'"))]
-        (exec url)))
-    (esen
-      (let [(url (string-append
-                   "open -a Firefox 'https://translate.google.com/#es/en/"
-                   (get-after-colon inputcontents) "'"))]
-        (exec url)))
-    (enes
-      (let [(url (string-append
-                   "open -a Firefox 'https://translate.google.com/#en/es/"
-                   (get-after-colon inputcontents)  "'"))]
-        (exec url)))))
+    (sshutdown (exec "osascript -e 'tell app \"System Events\" to shut down'"))
+    (sreboot (exec "osascript -e 'tell app \"loginwindow\" to «event aevtrrst»'"))
+    (reboot (exec "osascript -e 'tell app \"System Events\" to restart'"))
+    (open (let [(cmd (string-append "open /Applications/" (get-after-colon inputcontents) ".app"))] (exec cmd)))))
 
 (define unix-lookup
   '((firefox (exec "firefox &"))
@@ -127,42 +94,7 @@
     (libreoffice (exec "libreoffice &"))
     (mendeley (exec "mendeleydesktop &"))
     (shutdown (exec "xfce4-terminal -x sudo shutdown -h now"))
-    (reboot (exec "xfce4-terminal -x sudo shutdown -r now"))
-    (google
-      (let [(url (string-append
-                   "firefox --new-tab 'http://www.google.com/search?q="
-                   (get-after-colon inputcontents) "'"))]
-        (exec url)))
-    (wiki
-      (let [(url (string-append
-                   "firefox --new-tab 'http://en.wikipedia.org/wiki/Special:Search?search="
-                   (get-after-colon inputcontents) "'"))]
-        (exec url)))
-    (youtube
-      (let [(url (string-append
-                   "firefox --new-tab 'http://www.youtube.com/results?search_query="
-                   (get-after-colon inputcontents) "'"))]
-        (exec url)))
-    (define
-      (let [(url (string-append
-                   "firefox --new-tab 'http://www.dictionary.com/browse/"
-                   (get-after-colon inputcontents) "?s=t'"))]
-        (exec url)))
-    (syn
-      (let [(url (string-append
-                   "firefox --new-tab 'http://www.thesaurus.com/browse/"
-                   (get-after-colon inputcontents) "?s=t'"))]
-        (exec url)))
-    (esen
-      (let [(url (string-append
-                   "firefox --new-tab 'https://translate.google.com/#es/en/"
-                   (get-after-colon inputcontents) "'"))]
-        (exec url)))
-    (enes
-      (let [(url (string-append
-                   "firefox --new-tab 'https://translate.google.com/#en/es/"
-                   (get-after-colon inputcontents)  "'"))]
-        (exec url)))))
+    (reboot (exec "xfce4-terminal -x sudo shutdown -r now"))))
 
 
 (if (eq? os 'macosx) (set! lookup (append lookup mac-lookup)) '())
