@@ -22,11 +22,29 @@
 (if (eq? os 'unix) (set! SEARCH-PREFIX "firefox --new-tab ") '())
 
 
+(define (disp-output amessage)
+  (define tmp (new text-field% [parent cmdout-dialog] [label #f] [enabled #f]
+                   [min-width 600] [min-height 600] [style '(multiple)]))
+  (define tmpq (new button% [parent cmdout-dialog] [label "Ok"]
+                    [callback
+                      (lambda (a b)
+                        (send cmdout-dialog show #f))]))
+  (send tmp set-value amessage)
+  (send cmdout-dialog center)
+  (send cmdout-dialog show #t)
+  (send tmpq focus)
+  (send cmdout-dialog delete-child tmp)
+  (send cmdout-dialog delete-child tmpq))
+
+
+
 (define lookup
   `((reload (load-rc))
     (repl (graphical-read-eval-print-loop))
     (about (send about-dialog show #t))
     (kill (begin (stop-server) (exit 0)))
+    (run (disp-output (with-output-to-string (lambda () (system (get-after-colon inputcontents))))))
+    (R (disp-output (with-output-to-string (lambda () (system (string-append "R --quiet -e '" (get-after-colon inputcontents) "'"))))))
     (google (let [(url (string-append SEARCH-PREFIX "'http://google.com/search?q=" (get-after-colon inputcontents) "'"))] (exec url)))
     (wiki (let [(url (string-append SEARCH-PREFIX "'http://en.wikipedia.org/wiki/Special:Search?search=" (get-after-colon inputcontents) "'"))] (exec url)))
     (youtube (let [(url (string-append SEARCH-PREFIX "'http://www.youtube.com/results?search_query=" (get-after-colon inputcontents) "'"))] (exec url)))
@@ -40,6 +58,7 @@
 
 (define mac-lookup
   `((firefox (mexec "Firefox"))
+    (fasterfox (exec "~/bin/fasterfox"))
     (terminal (mexec "iTerm"))
     (macvim (mexec "MacVim"))
     (calendar (mexec "Calendar"))
@@ -49,6 +68,7 @@
     (spotify (mexec "Spotify"))
     (image-capture (mexec "Image\\ Capture"))
     (app-store (mexec "App\\ Store"))
+    (mendeley (mexec "Mendeley\\ Desktop"))
     (todo (mexec "2Do"))
     (toodledo (exec "open 'http://toodledo.com'"))
     (monitor (mexec "Utilities/Activity\\ Monitor"))
@@ -75,12 +95,12 @@
     (lock (exec "xscreensaver-command -lock"))
     (notes (exec "xfce4-terminal -x vim /home/tony/Dropbox/Unclutter\\ Notes/arch-notes.txt &"))
     (gmail (exec "firefox --new-tab 'http://gmail.com'"))
-    (todo (exec "firefox --new-tab 'http://toodledo.com'"))
-    (chrome (exec "google-chrome-stable &"))
-    (terminal (exec "xfce4-terminal &"))
+    (toodledo (exec "firefox --new-tab 'http://toodledo.com'"))
     (chrome (exec "google-chrome-stable &"))
     (incognito (exec "google-chrome-stable --incognito &"))
+    (terminal (exec "xfce4-terminal &"))
     (explorer (exec "pcmanfm &"))
+    (gimp (exec "gimp &"))
     (clock (exec "xclock -d -sharp -render -chime"))
     (watch (exec "xclock -sharp -render -chime"))
     (volume (exec "xfce4-terminal -x alsamixer"))
