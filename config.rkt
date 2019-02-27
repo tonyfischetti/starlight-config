@@ -8,6 +8,8 @@
 ; of matching a target
 (define arg-separator #rx"[ :]")
 
+; (define matching? string-contains?)
+
 ; function to get the contents after the colon
 (define (get-after-colon theinput)
   (let ([separated (string-split theinput ":")])
@@ -38,11 +40,16 @@
 
 
 
-(define lookup
+;; remember that if the cadr (when called with `eval` returns #f
+;; the window will not hide
+
+
+(define base-lookup
   `((reload (load-rc))
     (repl (graphical-read-eval-print-loop))
     (about (send about-dialog show #t))
     (kill (begin (stop-server) (exit 0)))
+    (cmd (system (get-after-colon inputcontents)))
     (run (disp-output (with-output-to-string (lambda () (system (get-after-colon inputcontents))))))
     (R (disp-output (with-output-to-string (lambda () (system (string-append "R --quiet -e '" (get-after-colon inputcontents) "'"))))))
     (google (let [(url (string-append SEARCH-PREFIX "'http://google.com/search?q=" (get-after-colon inputcontents) "'"))] (exec url)))
@@ -88,6 +95,8 @@
     (sshutdown (exec "osascript -e 'tell app \"System Events\" to shut down'"))
     (sreboot (exec "osascript -e 'tell app \"loginwindow\" to «event aevtrrst»'"))
     (reboot (exec "osascript -e 'tell app \"System Events\" to restart'"))
+    (finder (begin (set! lookup dir-lookup) #f))
+    (test (begin (set! lookup (construct-dir-list (string->path "/Applications"))) #f))
     (open (let [(cmd (string-append "open /Applications/" (get-after-colon inputcontents) ".app"))] (exec cmd)))))
 
 (define unix-lookup
@@ -116,7 +125,49 @@
     (shutdown (exec "xfce4-terminal -x sudo shutdown -h now"))
     (reboot (exec "xfce4-terminal -x sudo shutdown -r now"))))
 
+(define lookup '())
 
-(if (eq? os 'macosx) (set! lookup (append lookup mac-lookup)) '())
-(if (eq? os 'unix) (set! lookup (append lookup unix-lookup)) '())
+; (if (eq? os 'macosx) (set! lookup (append base-lookup mac-lookup)) '())
+; (if (eq? os 'unix) (set! lookup (append base-lookup unix-lookup)) '())
 
+(define (reset-top-level-lookup)
+  (if (eq? os 'macosx) (set! lookup (append base-lookup mac-lookup)) '())
+  (if (eq? os 'unix) (set! lookup (append base-lookup unix-lookup)) '()))
+
+ (reset-top-level-lookup) 
+
+
+
+; subordinate lookups
+(define dir-lookup
+  `(
+    (dropbox (begin (reset-top-level-lookup) (exec "open ~/Dropbox/")))
+    (pictures (exec "open ~/Pictures/"))
+    (documents (exec "open ~/Documents/"))
+    (back (begin (reset-top-level-lookup) #f))
+    ))
+
+
+
+
+
+
+; (define (construct-dir-list apath)
+;   (define tmp (map (lambda (path) (list 
+;                                     (string->symbol (path->string path))
+;                                     `(begin (reset-top-level-lookup)
+;                                             (exec (string-appen
+;                                                     "open " ,(path->string (path->complete-path path apath))))) ))
+;                    (directory-list apath)))
+;   (printf "~A~%" tmp)
+;   tmp)
+
+
+(define (construct-dir-list apath)
+  (map
+    (lambda (path)
+      (list
+        (string->symbol (path->string path))
+        `(begin (reset-top-level-lookup)
+                (exec (string-append "open \"" ,(path->string (path->complete-path path apath)) "\"")))))
+    (directory-list apath)))
