@@ -51,6 +51,8 @@
     (kill (begin (stop-server) (exit 0)))
     (cmd (system (get-after-colon inputcontents)))
     (run (disp-output (with-output-to-string (lambda () (system (get-after-colon inputcontents))))))
+    (strin (begin (define matching? (make-parameter string-contains?)) #f))
+    (prefix (begin (define matching? (make-parameter string-prefix?)) #f))
     (R (disp-output (with-output-to-string (lambda () (system (string-append "R --quiet -e '" (get-after-colon inputcontents) "'"))))))
     (google (let [(url (string-append SEARCH-PREFIX "'http://google.com/search?q=" (get-after-colon inputcontents) "'"))] (exec url)))
     (wiki (let [(url (string-append SEARCH-PREFIX "'http://en.wikipedia.org/wiki/Special:Search?search=" (get-after-colon inputcontents) "'"))] (exec url)))
@@ -66,8 +68,8 @@
 (define mac-lookup
   `((firefox (mexec "Firefox"))
     (fasterfox (exec "~/bin/fasterfox"))
-    (terminal (mexec "iTerm"))
-    (macvim (mexec "MacVim"))
+    (terminal (mexec "iTerm") hi)
+    (macvim (mexec "MacVim") thisisatest)
     (calendar (mexec "Calendar"))
     (contacts (mexec "Contacts"))
     (whatsapp (mexec "WhatsApp"))
@@ -95,8 +97,8 @@
     (sshutdown (exec "osascript -e 'tell app \"System Events\" to shut down'"))
     (sreboot (exec "osascript -e 'tell app \"loginwindow\" to «event aevtrrst»'"))
     (reboot (exec "osascript -e 'tell app \"System Events\" to restart'"))
-    (finder (begin (set! lookup dir-lookup) #f))
-    (test (begin (set! lookup (construct-dir-list (string->path "/Applications"))) #f))
+    (finder (begin (set! lookup (append-base-subordinates dir-lookup)) #f))
+    (applications (begin (set! lookup (append-base-subordinates (construct-dir-list (string->path "/Applications")))) #f))
     (open (let [(cmd (string-append "open /Applications/" (get-after-colon inputcontents) ".app"))] (exec cmd)))))
 
 (define unix-lookup
@@ -138,13 +140,22 @@
 
 
 
+(define for-all-subordinates
+  `(
+    (back (begin (reset-top-level-lookup) #f))
+    (strin (begin (define matching? (make-parameter string-contains?)) #f))
+    (prefix (begin (define matching? (make-parameter string-prefix?)) #f))
+    ))
+
+(define (append-base-subordinates asub)
+  (append for-all-subordinates asub))
+
 ; subordinate lookups
 (define dir-lookup
   `(
     (dropbox (begin (reset-top-level-lookup) (exec "open ~/Dropbox/")))
     (pictures (exec "open ~/Pictures/"))
     (documents (exec "open ~/Documents/"))
-    (back (begin (reset-top-level-lookup) #f))
     ))
 
 
