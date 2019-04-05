@@ -63,7 +63,8 @@
     (phone (let [(url (string-append SEARCH-PREFIX "'http://phone.apps.nypl.org/home/set_form_vars?basicsearch=" (get-after-colon inputcontents) "'"))] (exec url)))
     (worldcat (let [(url (string-append SEARCH-PREFIX "'https://www.worldcat.org/search?qt=worldcat_org_bks&q=" (get-after-colon inputcontents) "'"))] (exec url)))
     (esen (let [(url (string-append SEARCH-PREFIX "'https://translate.google.com/#es/en/" (get-after-colon inputcontents) "'"))] (exec url)))
-    (enes (let [(url (string-append SEARCH-PREFIX "'https://translate.google.com/#en/es/" (get-after-colon inputcontents)  "'"))] (exec url)))))
+    (enes (let [(url (string-append SEARCH-PREFIX "'https://translate.google.com/#en/es/" (get-after-colon inputcontents)  "'"))] (exec url)))
+    ))
 
 (define mac-lookup
   `((firefox (mexec "Firefox"))
@@ -91,6 +92,8 @@
     (config (exec "open ~/.starlight/config.rkt"))
     (preferences (mexec "System\\ Preferences"))
     (dictionary (mexec "Dictionary"))
+    (emacs (mexec "Emacs"))
+    (firstsearch (exec "open 'https://firstsearch-oclc-org.i.ezproxy.nypl.org/WebZ/LogDbChange?dbchangetype=quickselect:next=html/advanced.html:bad=html/home.html:sessionid=fsapp3-42467-jtembp1t-vhomzn:entitypagenum=2:0:dbname=WorldCat'"))
     (notes (exec "open ~/Dropbox/Unclutter\\ Notes/notas.txt"))
     (lock (exec "/System/Library/CoreServices/ScreenSaverEngine.app/Contents/MacOS/ScreenSaverEngine"))
     (shutdown (exec "osascript -e 'tell app \"loginwindow\" to «event aevtrsdn»'"))
