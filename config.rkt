@@ -67,7 +67,9 @@
     ))
 
 (define mac-lookup
-  `((firefox (mexec "Firefox"))
+  `(
+    (note (exec "~/bin/start-notes"))
+    (firefox (mexec "Firefox"))
     (fasterfox (exec "~/bin/fasterfox"))
     (terminal (mexec "iTerm") hi)
     (macvim (mexec "MacVim") thisisatest)
@@ -94,7 +96,6 @@
     (dictionary (mexec "Dictionary"))
     (emacs (mexec "Emacs"))
     (firstsearch (exec "open 'https://firstsearch-oclc-org.i.ezproxy.nypl.org/WebZ/LogDbChange?dbchangetype=quickselect:next=html/advanced.html:bad=html/home.html:sessionid=fsapp3-42467-jtembp1t-vhomzn:entitypagenum=2:0:dbname=WorldCat'"))
-    (notes (exec "open ~/Dropbox/Unclutter\\ Notes/notas.txt"))
     (lock (exec "/System/Library/CoreServices/ScreenSaverEngine.app/Contents/MacOS/ScreenSaverEngine"))
     (shutdown (exec "osascript -e 'tell app \"loginwindow\" to «event aevtrsdn»'"))
     (sshutdown (exec "osascript -e 'tell app \"System Events\" to shut down'"))
