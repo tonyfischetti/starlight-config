@@ -19,6 +19,10 @@
   (let [(thestring (string-append "open /Applications/" astring ".app"))]
     (exec thestring)))
 
+(define (dexec astring)
+  (let [(thestring (string-append "/home/tony/.zsh/more-scripts/open " astring))]
+    (exec thestring)))
+
 (define SEARCH-PREFIX "")
 (if (eq? os 'macosx) (set! SEARCH-PREFIX "open -a Firefox ") '())
 (if (eq? os 'unix) (set! SEARCH-PREFIX "firefox --new-tab ") '())
@@ -106,27 +110,24 @@
     (open (let [(cmd (string-append "open /Applications/" (get-after-colon inputcontents) ".app"))] (exec cmd)))))
 
 (define unix-lookup
-  '((firefox (exec "firefox &"))
+  '((firefox (dexec "firefox"))
+    (terminal (dexec "terminal"))
     (lock (exec "xscreensaver-command -lock"))
-    (notes (exec "xfce4-terminal -x vim /home/tony/Dropbox/Unclutter\\ Notes/arch-notes.txt &"))
     (gmail (exec "firefox --new-tab 'http://gmail.com'"))
     (toodledo (exec "firefox --new-tab 'http://toodledo.com'"))
-    (chrome (exec "google-chrome-stable &"))
-    (incognito (exec "google-chrome-stable --incognito &"))
-    (terminal (exec "xfce4-terminal &"))
-    (explorer (exec "pcmanfm &"))
-    (gimp (exec "gimp &"))
-    (clock (exec "xclock -d -sharp -render -chime"))
-    (watch (exec "xclock -sharp -render -chime"))
+    (contacts (dexec "contacts"))
+    (calendar (dexec "calendar"))
+    (evolution (dexec "evolution"))
+    (explorer (exec "thunar &"))
+    (spotify (dexec "spotify"))
+    (whatsapp (dexec "whatsapp"))
+    (gimp (dexec "gimp"))
+    (slack (dexec "slack"))
+    (gnumeric (dexec "gnumeric"))
     (volume (exec "xfce4-terminal -x alsamixer"))
     (night (exec "redshift -O 2500"))
     (deepnight (exec "redshift -O 2000"))
     (day (exec "redshift -O 5500"))
-    (time (exec "flash-time"))
-    (spotify (exec "spotify &"))
-    (whatsapp (exec "Whatsapp &"))
-    (gnumeric (exec "gnumeric &"))
-    (libreoffice (exec "libreoffice &"))
     (mendeley (exec "mendeleydesktop &"))
     (shutdown (exec "xfce4-terminal -x sudo shutdown -h now"))
     (reboot (exec "xfce4-terminal -x sudo shutdown -r now"))))
@@ -140,7 +141,7 @@
   (if (eq? os 'macosx) (set! lookup (append base-lookup mac-lookup)) '())
   (if (eq? os 'unix) (set! lookup (append base-lookup unix-lookup)) '()))
 
- (reset-top-level-lookup) 
+ (reset-top-level-lookup)
 
 
 
@@ -168,7 +169,7 @@
 
 
 ; (define (construct-dir-list apath)
-;   (define tmp (map (lambda (path) (list 
+;   (define tmp (map (lambda (path) (list
 ;                                     (string->symbol (path->string path))
 ;                                     `(begin (reset-top-level-lookup)
 ;                                             (exec (string-appen
