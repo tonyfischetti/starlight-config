@@ -125,7 +125,7 @@
     (whatsapp (dexec "whatsapp"))
     (gimp (dexec "gimp"))
     (slack (dexec "slack"))
-    (screenshot (exec "xfce4-screenshooter &"))
+    (screenshot (exec "xfce4-screenshooter -r -s /home/tony/Desktop/ &"))
     (gnumeric (dexec "gnumeric"))
     (volume (exec "xfce4-terminal -x alsamixer"))
     (night (exec "redshift -O 2500"))
