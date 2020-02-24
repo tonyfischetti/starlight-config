@@ -120,6 +120,8 @@
     (calendar (dexec "calendar"))
     (exfalso (exec "exfalso"))
     (veracrypt (exec "veracrypt"))
+    (settings (exec "xfce4-settings-manager"))
+    (display (exec "xfce4-display-settings"))
     (xfburn (exec "xfburn"))
     (explorer (exec "thunar &"))
     (music (dexec "cmus"))
