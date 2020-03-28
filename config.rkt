@@ -72,7 +72,6 @@
 
 (define mac-lookup
   `(
-    (note (exec "~/bin/start-notes"))
     (firefox (mexec "Firefox"))
     (fasterfox (exec "~/bin/fasterfox"))
     (terminal (mexec "iTerm") hi)
@@ -86,7 +85,8 @@
     (app-store (mexec "App\\ Store"))
     (mendeley (mexec "Mendeley\\ Desktop"))
     (todo (mexec "2Do"))
-    (toodledo (exec "open 'http://toodledo.com'"))
+    (toodledo (exec "open 'http://tasks.toodledo.com'"))
+    (notes (exec "open 'http://notes.toodledo.com'"))
     (monitor (mexec "Utilities/Activity\\ Monitor"))
     (gmail (exec "open 'http://gmail.com'"))
     (preview (mexec "Preview"))
@@ -114,7 +114,8 @@
     (terminal (dexec "terminal"))
     (lock (exec "xscreensaver-command -lock"))
     (gmail (exec "firefox --new-tab 'http://gmail.com'"))
-    (toodledo (exec "firefox --new-tab 'http://toodledo.com'"))
+    (toodledo (exec "firefox --new-tab 'http://tasks.toodledo.com'"))
+    (notes (exec "firefox --new-tab 'http://notes.toodledo.com'"))
     (todo (dexec "todo"))
     (contacts (dexec "contacts"))
     (calendar (dexec "calendar"))
