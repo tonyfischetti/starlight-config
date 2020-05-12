@@ -134,7 +134,7 @@
     (volume (sexec "xfce4-terminal -x alsamixer"))
     (night (sexec "redshift -O 2500"))
     (deepnight (sexec "redshift -O 2000"))
-    (day (sexec "redshift -O 5500"))
+    (day (sexec "redshift -x"))
     (mendeley (sexec "mendeleydesktop &"))
     (shutdown (exec "xfce4-terminal -x sudo shutdown -h now"))
     (reboot (exec "xfce4-terminal -x sudo shutdown -r now"))))
