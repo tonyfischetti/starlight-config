@@ -6,7 +6,7 @@
 ; after which starlight will ignore the rest of
 ; the contents of the input field for the purposes
 ; of matching a target
-(define arg-separator #rx"[ :]")
+(define arg-separator #rx":")
 
 ; (define matching? string-contains?)
 
