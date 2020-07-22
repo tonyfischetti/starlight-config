@@ -132,6 +132,7 @@
     (gimp (dexec "gimp"))
     (screenshot (sexec "xfce4-screenshooter -r -s /home/tony/Desktop/ &"))
     (volume (sexec "xfce4-terminal -x alsamixer"))
+    (evening (sexec "redshift -O 4000"))
     (night (sexec "redshift -O 2500"))
     (deepnight (sexec "redshift -O 2000"))
     (day (sexec "redshift -x"))
