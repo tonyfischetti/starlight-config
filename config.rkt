@@ -71,12 +71,10 @@
     (phone (let [(url (string-append SEARCH-PREFIX "'http://phone.apps.nypl.org/home/set_form_vars?basicsearch=" (get-after-colon inputcontents) "'"))] (exec url)))
     (worldcat (let [(url (string-append SEARCH-PREFIX "'https://www.worldcat.org/search?qt=worldcat_org_bks&q=" (get-after-colon inputcontents) "'"))] (exec url)))
     (esen (let [(url (string-append SEARCH-PREFIX "'https://translate.google.com/#es/en/" (get-after-colon inputcontents) "'"))] (exec url)))
-    (enes (let [(url (string-append SEARCH-PREFIX "'https://translate.google.com/#en/es/" (get-after-colon inputcontents)  "'"))] (exec url)))
-    ))
+    (enes (let [(url (string-append SEARCH-PREFIX "'https://translate.google.com/#en/es/" (get-after-colon inputcontents)  "'"))] (exec url)))))
 
 (define mac-lookup
-  `(
-    (firefox (mexec "Firefox"))
+  `((firefox (mexec "Firefox"))
     (fasterfox (exec "~/bin/fasterfox"))
     (terminal (mexec "iTerm") hi)
     (macvim (mexec "MacVim") thisisatest)
@@ -127,6 +125,8 @@
     (xfburn (sexec "xfburn"))
     (explorer (sexec "thunar &"))
     (music (dexec "cmus"))
+    (nypl (dexec "nypl"))
+    (kernel (dexec "kernel"))
     (spotify (dexec "spotify"))
     (whatsapp (dexec "whatsapp"))
     (gimp (dexec "gimp"))
@@ -149,43 +149,21 @@
   (if (eq? os 'macosx) (set! lookup (append base-lookup mac-lookup)) '())
   (if (eq? os 'unix) (set! lookup (append base-lookup unix-lookup)) '()))
 
- (reset-top-level-lookup)
-
-
+(reset-top-level-lookup)
 
 (define for-all-subordinates
-  `(
-    (back (begin (reset-top-level-lookup) #f))
+  `((back (begin (reset-top-level-lookup) #f))
     (strin (begin (define matching? (make-parameter string-contains?)) #f))
-    (prefix (begin (define matching? (make-parameter string-prefix?)) #f))
-    ))
+    (prefix (begin (define matching? (make-parameter string-prefix?)) #f))))
 
 (define (append-base-subordinates asub)
   (append for-all-subordinates asub))
 
 ; subordinate lookups
 (define dir-lookup
-  `(
-    (dropbox (begin (reset-top-level-lookup) (exec "open ~/Dropbox/")))
+  `((dropbox (begin (reset-top-level-lookup) (exec "open ~/Dropbox/")))
     (pictures (exec "open ~/Pictures/"))
-    (documents (exec "open ~/Documents/"))
-    ))
-
-
-
-
-
-
-; (define (construct-dir-list apath)
-;   (define tmp (map (lambda (path) (list
-;                                     (string->symbol (path->string path))
-;                                     `(begin (reset-top-level-lookup)
-;                                             (exec (string-appen
-;                                                     "open " ,(path->string (path->complete-path path apath))))) ))
-;                    (directory-list apath)))
-;   (printf "~A~%" tmp)
-;   tmp)
-
+    (documents (exec "open ~/Documents/"))))
 
 (define (construct-dir-list apath)
   (map
