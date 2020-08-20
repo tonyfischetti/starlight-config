@@ -114,7 +114,7 @@
 (define unix-lookup
   '((firefox (dexec "firefox"))
     (terminal (dexec "terminal"))
-    (lock (sexec "xscreensaver-command -lock"))
+    (lock (sexec "slock"))
     (gmail (sexec "firefox --new-tab 'http://gmail.com'"))
     (toodledo (sexec "firefox --new-tab 'http://tasks.toodledo.com'"))
     (notes (sexec "firefox --new-tab 'http://notes.toodledo.com'"))
