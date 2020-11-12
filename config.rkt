@@ -75,7 +75,6 @@
 
 (define mac-lookup
   `((firefox (mexec "Firefox"))
-    (fasterfox (exec "~/bin/fasterfox"))
     (terminal (mexec "iTerm") hi)
     (macvim (mexec "MacVim") thisisatest)
     (calendar (mexec "Calendar"))
@@ -98,6 +97,7 @@
     (garageband (mexec "GarageBand"))
     (rstudio (mexec "RStudio"))
     (config (exec "open ~/.starlight/config.rkt"))
+    (screenshot (exec "screencapture -s ~/Desktop/screenshot-`date +\"%Y-%m-%d_%H.%M.%S\"`.png"))
     (preferences (mexec "System\\ Preferences"))
     (dictionary (mexec "Dictionary"))
     (emacs (mexec "Emacs"))
