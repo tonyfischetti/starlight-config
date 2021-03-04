@@ -129,6 +129,7 @@
     (kernel (dexec "kernel"))
     (spotify (dexec "spotify"))
     (whatsapp (dexec "whatsapp"))
+    (signal (dexec "signal"))
     (gimp (dexec "gimp"))
     (screenshot (sexec "xfce4-screenshooter -r -s /home/tony/Desktop/ &"))
     (volume (sexec "xfce4-terminal -x alsamixer"))
