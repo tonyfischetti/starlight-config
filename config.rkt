@@ -92,6 +92,7 @@
     (gmail (exec "open 'http://gmail.com'"))
     (preview (mexec "Preview"))
     (slack (mexec "Slack"))
+    (signal (mexec "Signal"))
     (messages (mexec "Messages"))
     (chrome (mexec "Google\\ Chrome"))
     (garageband (mexec "GarageBand"))
