@@ -131,6 +131,7 @@
     (spotify (dexec "spotify"))
     (whatsapp (dexec "whatsapp"))
     (signal (dexec "signal"))
+    (icon (sexec "~/.zsh/more-scripts/icon-toggle.sh"))
     (gimp (dexec "gimp"))
     (screenshot (sexec "xfce4-screenshooter -r -s /home/tony/Desktop/ &"))
     (volume (sexec "xfce4-terminal -x alsamixer"))
