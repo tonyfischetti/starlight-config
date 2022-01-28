@@ -95,6 +95,7 @@
     (english (exec "setxkbmap 'us,gr(nodeadkeys),es' && xmodmap ~/.Xmodmap"))
     (αγγλικά (exec "setxkbmap 'us,gr(nodeadkeys),es' && xmodmap ~/.Xmodmap"))
     (whatsapp (dexec "whatsapp"))
+    (chromium (dexec "chromium"))
     (signal (dexec "signal"))
     (icon (sexec "~/.zsh/more-scripts/icon-toggle.sh"))
     (gimp (dexec "gimp"))
