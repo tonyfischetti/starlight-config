@@ -90,6 +90,7 @@
     (nypl (dexec "nypl"))
     (kernel (dexec "kernel"))
     (spotify (dexec "spotify"))
+    (transmission (dexec "transmission"))
     (greek (exec "setxkbmap 'gr(nodeadkeys)',us,es"))
     (spanish (exec "setxkbmap 'es,us,gr(nodeadkeys)'"))
     (english (exec "setxkbmap 'us,gr(nodeadkeys),es' && xmodmap ~/.Xmodmap"))
