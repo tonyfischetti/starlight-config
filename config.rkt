@@ -90,7 +90,7 @@
     (nypl (dexec "nypl"))
     (kernel (dexec "kernel"))
     (mylua (dexec "mylua"))
-    (nystec (dexec "nystec"))
+    (doh (dexec "doh"))
     (spotify (dexec "spotify"))
     (transmission (dexec "transmission"))
     (greek (exec "setxkbmap 'gr(nodeadkeys)',us,es"))
