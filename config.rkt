@@ -107,6 +107,7 @@
     (volume (sexec "xfce4-terminal -x alsamixer"))
     (unclutter (sexec "xfce4-terminal -x vi ~/notes +"))
     (pulseaudio (exec "pulseaudio -k"))
+    (obsidian (dexec "obsidian"))
     (dim (sexec "redshift -O 5000"))
     (evening (sexec "redshift -O 4000"))
     (night (sexec "redshift -O 2500"))
