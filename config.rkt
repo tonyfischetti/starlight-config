@@ -89,7 +89,7 @@
     (music (dexec "cmus"))
     (nypl (dexec "nypl"))
     (kernel (dexec "kernel"))
-    (mylua (dexec "mylua"))
+    (calibre (dexec "calibre"))
     (doh (dexec "doh"))
     (spotify (dexec "spotify"))
     (transmission (dexec "transmission"))
