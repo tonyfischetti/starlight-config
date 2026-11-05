@@ -19,6 +19,10 @@
   (let [(thestring (string-append "open /Applications/" astring ".app"))]
     (exec thestring)))
 
+(define (msexec astring)
+  (let [(thestring (string-append "open /System/Applications/" astring ".app"))]
+    (exec thestring)))
+
 (define (dexec astring)
   (let [(thestring (string-append "/home/tony/.zsh/more-scripts/open " astring))]
     (exec thestring)))
@@ -133,7 +137,7 @@
     (preview (mexec "Preview"))
     (slack (mexec "Slack"))
     (signal (mexec "Signal"))
-    (messages (mexec "Messages"))
+    (messages (msexec "Messages"))
     (docker (mexec "Docker"))
     (deemix (mexec "Deemix"))
     (pixelmator (mexec "Pixelmator\\ Pro"))
